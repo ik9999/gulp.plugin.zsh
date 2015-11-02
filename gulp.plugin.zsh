@@ -1,6 +1,6 @@
 function $$gulp_completion () {
     if [ -f "gulpfile.js" ]; then
-        files=("$(realpath gulpfile.js)")
+        files=("$(readlink -f gulpfile.js)")
         requireDirVar="$(grep -Eo "[var|let].*require\(['\"]require\-dir['\"]\);$" gulpfile.js 2>/dev/null | grep -Eo " [^ =]*" | head -1| grep -Eo "[^ ]*")"
         if [ ! -z "$requireDirVar" ]; then
             requiredDirs="$(grep -Eo "requireDir\(['\"][^'\"]*" gulpfile.js 2>/dev/null | grep -Eo "['\"].*" | grep -Eo "['\"].*" | sed s/"['\"]"//g)"  
