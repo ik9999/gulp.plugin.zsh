@@ -16,3 +16,7 @@ $ gulp <TAB>
   * Support recursive require-dir
   * Support requiure for one .js file
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ik9999/gulp.plugin.zsh/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
