@@ -5,9 +5,12 @@ function $$gulp_completion () {
             gulpFileName="gulpfile.babel.js"
         fi
         files=("$(readlink -f $gulpFileName)")
-        requireDirVar="$(grep -Eo "[var|let].*require\(['\"]require\-dir['\"]\);$" $gulpFileName 2>/dev/null | grep -Eo " [^ =]*" | head -1| grep -Eo "[^ ]*")"
+        requireDirVar="$(grep -Eo "[var|let].*require\(['\"]require\-dir['\"]\)" $gulpFileName 2>/dev/null | grep -Eo " [^ =]*" | head -1| grep -Eo "[^ ]*")"
+        if [[ -z  "$requireDirVar"  ]] then
+            requireDirVar="$(grep -Eo "import.*from[^'\"]*['\"]require\-dir['\"]" $gulpFileName 2>/dev/null | grep -Eo "import *[^ ]* *from" | grep -Eo "import *[^ ]*" | grep -Eo "[^ ]*" | tail -1)"
+        fi
         if [ ! -z "$requireDirVar" ]; then
-            requiredDirs="$(grep -Eo "requireDir\(['\"][^'\"]*" gulpfile.js 2>/dev/null | grep -Eo "['\"].*" | grep -Eo "['\"].*" | sed s/"['\"]"//g)"  
+            requiredDirs="$(grep -Eo "requireDir\(['\"][^'\"]*" $gulpFileName 2>/dev/null | grep -Eo "['\"].*" | grep -Eo "['\"].*" | sed s/"['\"]"//g)"  
             requiredDirsArray=("${(f)requiredDirs}")
             requiredFilesStr="$(find $requiredDirsArray -maxdepth 1 -name '*.js' -exec readlink -f {} \;)"
             requiredFilesArray=("${(f)requiredFilesStr}")

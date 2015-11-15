@@ -1,8 +1,10 @@
 # gulp.plugin.zsh
->Zsh plugin for gulp completition with require-dir support(without running gulp --tasks-simple).
+>Zsh plugin for gulp completition with gulpfile.babel.js and require-dir support(without running gulp --tasks-simple).
 
 ##Features
   * Parsing tasks from .js files included with [require-dir](https://www.npmjs.com/package/require-dir) module from gulpfile.js.
+  * gulpfile.babel.js support(prioritize it over gulpfile.js).
+  * "import from 'require-dir'" support.
 
 ## Installation
 Manually or with [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
