@@ -1,7 +1,11 @@
 function $$gulp_completion () {
-    if [ -f "gulpfile.js" ]; then
-        files=("$(readlink -f gulpfile.js)")
-        requireDirVar="$(grep -Eo "[var|let].*require\(['\"]require\-dir['\"]\);$" gulpfile.js 2>/dev/null | grep -Eo " [^ =]*" | head -1| grep -Eo "[^ ]*")"
+    if [[ -f "gulpfile.js" || -f "gulpfile.babel.js" ]]; then
+        gulpFileName="gulpfile.js"
+        if [ -f "gulpfile.babel.js" ]; then
+            gulpFileName="gulpfile.babel.js"
+        fi
+        files=("$(readlink -f $gulpFileName)")
+        requireDirVar="$(grep -Eo "[var|let].*require\(['\"]require\-dir['\"]\);$" $gulpFileName 2>/dev/null | grep -Eo " [^ =]*" | head -1| grep -Eo "[^ ]*")"
         if [ ! -z "$requireDirVar" ]; then
             requiredDirs="$(grep -Eo "requireDir\(['\"][^'\"]*" gulpfile.js 2>/dev/null | grep -Eo "['\"].*" | grep -Eo "['\"].*" | sed s/"['\"]"//g)"  
             requiredDirsArray=("${(f)requiredDirs}")
