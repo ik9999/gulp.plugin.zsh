@@ -1,9 +1,15 @@
 function $$gulp_completion () {
-    if [[ -f "gulpfile.js" || -f "gulpfile.babel.js" ]]; then
+    gulpFileName=""
+    if [ -f "gulpfile.js" ]; then
         gulpFileName="gulpfile.js"
-        if [ -f "gulpfile.babel.js" ]; then
-            gulpFileName="gulpfile.babel.js"
-        fi
+    elif [ -f "Gulpfile.js" ]; then
+        gulpFileName="Gulpfile.js"
+    elif [ -f "gulpfile.babel.js" ]; then
+        gulpFileName="gulpfile.babel.js"
+    elif [ -f "Gulpfile.babel.js" ]; then
+        gulpFileName="Gulpfile.babel.js"
+    fi
+    if [[ ! -z "$gulpFileName" ]]; then
         files=("$(readlink -f $gulpFileName)")
         requireDirVar="$(grep -Eo "[var|let].*require\(['\"]require\-dir['\"]\)" $gulpFileName 2>/dev/null | grep -Eo " [^ =]*" | head -1| grep -Eo "[^ ]*")"
         if [[ -z  "$requireDirVar"  ]] then
