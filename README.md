@@ -3,7 +3,7 @@
 
 ##Features
   * Parsing tasks from .js files included with [require-dir](https://www.npmjs.com/package/require-dir) module from gulpfile.js.
-  * gulpfile.babel.js support(prioritize it over gulpfile.js).
+  * gulpfile.babel.js support(prioritizes it over gulpfile.js).
   * "import from 'require-dir'" support.
 
 ## Installation
